@@ -4,11 +4,13 @@ import contactsController from "../controllers/contactsControllers.js";
 
 import { validateBody } from "../decorators/index.js";
 
-import { isEmptyBody, isValidId } from "../middlewares/index.js";
+import { authenticate, isEmptyBody, isValidId } from "../middlewares/index.js";
 
 import contactsSchemas from "../schemas/contactsSchemas.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", contactsController.getAllContacts);
 
@@ -30,11 +32,11 @@ contactsRouter.put(
 );
 
 contactsRouter.patch(
-  "/:id/phone",
+  "/:id/favorite",
   isValidId,
   isEmptyBody,
   validateBody(contactsSchemas.updateContactSchema),
-  contactsController.updatePhone
+  contactsController.updateFavorite
 );
 
 contactsRouter.delete("/:id", isValidId, contactsController.deleteContact);
