@@ -1,5 +1,19 @@
 import Joi from "joi";
 
-export const createContactSchema = Joi.object({});
+import { phoneRegExp } from "../constants/contacts-constants.js";
 
-export const updateContactSchema = Joi.object({});
+const createContactSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  phone: Joi.string().pattern(phoneRegExp).required(),
+  favorite: Joi.boolean().default(false),
+});
+
+const updateContactSchema = Joi.object({
+  favorite: Joi.boolean(),
+});
+
+export default {
+  createContactSchema,
+  updateContactSchema,
+};
