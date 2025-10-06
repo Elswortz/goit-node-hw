@@ -14,7 +14,12 @@ const userSignInSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+const userVerifySchema = Joi.object({
+  email: Joi.string().pattern(emailRegExp).required(),
+});
+
 export default {
   userSignUpSchema,
   userSignInSchema,
+  userVerifySchema,
 };
